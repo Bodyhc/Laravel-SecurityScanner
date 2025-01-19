@@ -1,71 +1,95 @@
-# وصــــف المشـروع
-هذا المشروع يهدف إلى تعزيز أمان تطبيقات Laravel من خلال تطوير Middleware يقوم بفحص المدخلات للكشف عن هجمات SQL Injection وXSS وCSRF. باستخدام هذا المكون، يمكنك ضمان حماية بيانات المستخدمين وتحسين أمان التطبيق بشكل عام.
 
-# المميــزات الرئيسـية
-فحص SQL Injection: يكتشف ويحذر من أي مدخلات تشير إلى محاولات هجوم SQL.
-فحص XSS: يحدد أي مدخلات تحتوي على تاغات HTML قد تُستخدم في هجمات XSS.
-تحقق CSRF: يتأكد من وجود رمز CSRF في الطلبات POST لحماية التطبيق من هجمات CSRF.
-متطلبات التثبيت
-# قبل تثبيت هذا المشروع، يجب أن يكون لديك Laravel مثبتًا على نظامك. يمكنك اتباع الخطوات أدناه لتثبيت Laravel:
-1- تأكد من تثبيت Composer على جهازك.
-2- قم بتثبيت Laravel باستخدام الأمر التالي:
+# Laravel Security Scanner
 
-composer create-project laravel/laravel your-project-name
-# كيفية التثبيت 
+This project enhances the security of Laravel applications by introducing a middleware that detects and prevents **SQL Injection**, **XSS**, and **CSRF** attacks. It ensures user data protection and improves the application's overall security.
 
-1- قم بتحميل المشروع
+---
 
-استخدم الأمر git clone لنسخ المشروع إلى جهازك:
-https://github.com/Bodyhc/Laravel-SecurityScanner.git
+## Key Features
+- **SQL Injection Detection:** Identifies and warns about inputs indicating SQL injection attempts.
+- **XSS Detection:** Flags inputs containing malicious HTML or JavaScript.
+- **CSRF Verification:** Ensures a CSRF token is present in POST requests.
 
-2- نسخ الملفات:
+---
 
-انسخ ملف SecurityScanner.php وملف إعدادات التوجيه إلى مجلد المشروع الخاص بك:
+## Installation
 
-ملف ال SecurityScanner.php الي مجلد ال Middleware
+### Requirements
+1. Make sure **Composer** is installed on your machine.
+2. Install Laravel using the following command:
+   ```bash
+   composer create-project laravel/laravel your-project-name
+   ```
 
-app/Http/Middleware/SecurityScanner.php
+### Steps
+1. **Clone the Project**  
+   Clone the repository using the following command:  
+   ```bash
+   git clone https://github.com/Bodyhc/Laravel-SecurityScanner.git
+   ```
 
-وملف ال web الي مجلد routes
+2. **Copy Files**  
+   - Copy the `SecurityScanner.php` file to:  
+     ```
+     app/Http/Middleware/SecurityScanner.php
+     ```
+   - Copy the `web.php` file to:  
+     ```
+     routes/web.php
+     ```
 
-وتأكد انك تقوم بإستخدام 
+3. **Add Middleware**  
+   Include the middleware in your `web.php` file:  
+   ```php
+   use App\Http\Middleware\SecurityScanner;
+   ```
 
-use App\Http\Middleware\SecurityScanner; 
+4. **Run the Server**  
+   Start the Laravel development server:  
+   ```bash
+   php artisan serve
+   ```
 
-داخل ملف ال web.php
+---
 
-routes/web.php
+## Usage
 
-# كيفية الاستخدام
-تشغيل السيرفر: بعد إضافة الملفات، يمكنك تشغيل السيرفر باستخدام:
+### Testing the Application
+1. Open your browser and navigate to `http://localhost:8000`.
+2. Use the following examples to test the middleware:
 
-php artisan serve
-
-# اختبار التطبيق:
-
-افتح المتصفح واذهب إلى http://localhost:8000 واختبر الوظائف المختلفة.
-
-مثال بسيط  للتأكد من عمل الكود يمكن كتابة الكود التالي داخل عنوان ال URL
-
+#### Example 1: XSS Detection
+Enter the following URL in your browser:
+```
 http://localhost:8000/?query=<script>alert('XSS')</script>
-
-الخطأ الذي سيظهر هنا هو
-
+```
+You should see the error:
+```
 403 Potential XSS attack detected in field: query
+```
 
-
-
+#### Example 2: SQL Injection Detection
+Enter the following URL in your browser:
+```
 http://localhost:8000/?query=select * from users
-
-والخطأ الذي سيظهر هنا هو
-
+```
+You should see the error:
+```
 403 Potential SQL Injection detected in field: query
+```
 
+---
 
+## Contribution
+Feel free to fork the repository, make enhancements, and submit pull requests. Contributions are always welcome!
 
+---
 
+## License
+This project is open-source and available under the [MIT License](LICENSE).
 
+---
 
-
-
-
+## Author
+Developed by **Abdullah (Bodyhc)**  
+GitHub: [Bodyhc](https://github.com/Bodyhc)
